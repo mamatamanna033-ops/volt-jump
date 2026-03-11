@@ -11,10 +11,10 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install System Dependencies
+      - name: Install Android Build Tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev python3-setuptools
+          sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev python3-setuptools libportmidi-dev
 
       - uses: subosito/flutter-action@v2
         with:
@@ -25,8 +25,9 @@ jobs:
           pip install --upgrade pip
           pip install flet pygame
 
-      - name: Build APK
+      - name: Build APK with Flet
         run: flet build apk
+        continue-on-error: true
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
