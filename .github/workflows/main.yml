@@ -1,0 +1,14 @@
+name: Build My APK
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+      - run: pip install flet
+      - run: flet build apk
+      - uses: actions/upload-artifact@v3
+        with:
+          name: my-app-apk
+          path: build/apk/*.apk
